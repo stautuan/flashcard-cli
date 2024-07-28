@@ -1,30 +1,44 @@
+import os
+import time
+
+
 def main():
-    task = ""
-    while task != "2":
-        task = input(
-            "What would you like to do?\n1 - Add an entry\n2 - Quit\n")
-        if task == '1':
+    choice = ""
+    while choice != "2":
+        clear_screen()
+        print("What would you like to do?")
+        print("1 - Add an entry")
+        print("2 - Quit\n")
+        choice = input(">>> ")
+
+        if choice == "1":
             add_entry()
-        elif task == "2":
-            print("Quitting...")
+        elif choice == "2":
+            print("Au revoir!")
             break
         else:
-            print("Invalid input!\n")
+            print("Oops! That is an invalid input. Try again...")
+            time.sleep(2)
+
+
+def clear_screen():
+    os.system("clear")
 
 
 def add_entry():
     list_dict = {}
     while True:
+        clear_screen()
         print("======= New Entry ========")
         sentence = input("Sentence: ")
         definition = input("Definition: ")
         list_dict[sentence] = definition
         print("Added!\n")
 
-        answer = input("Continue? [y/n] ").lower()
-        if answer == "n":
-            print("==========================")
+        choice = input("Continue? [y/n] ").lower()
+        if choice == "n":
             break
 
 
-main()
+if __name__ == "__main__":
+    main()
