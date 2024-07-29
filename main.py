@@ -4,39 +4,42 @@ import time
 
 def main():
     choice = ""
-    while choice != "3":
+    while choice != "4":
         clear_screen()
         print("What would you like to do?")
         print("1 - Add an entry")
         print("2 - View entries")
-        print("3 - Quit\n")
+        print("3 - Study now")
+        print("4 - Quit\n")
         choice = input(">>> ")
 
         if choice == "1":
-            add_entry()
+            add_entry("french.txt")
         elif choice == "2":
-            get_entries()
+            get_entries("french.txt")
         elif choice == "3":
+            random_entry()
+        elif choice == "4":
             print("Au revoir!")
             break
         else:
-            print("Oops! That is an invalid input. Try again...")
-            time.sleep(2)
+            print(
+                f"Oops, '{choice}' is an invalid input. Give it another go... :)")
+            time.sleep(3)
 
 
 def clear_screen():
     os.system("clear")
 
 
-def add_entry():
-    list_dict = {}
+def add_entry(file):
     while True:
         clear_screen()
         print("======= New Entry ========")
-        with open("french.txt", "a") as f:
-            sentence = f.write(input("Sentence: "))
-            definition = f.write(input("Definition: "))
-            list_dict[sentence] = definition
+        with open(file, "a") as f:
+            text = input("Text: ")
+            translation = input("Translation: ")
+            f.write(f"{text}: {translation}\n")
             print("Added!\n")
 
         choice = input("Continue? [y/n] ").lower()
@@ -44,15 +47,19 @@ def add_entry():
             break
 
 
-def get_entries():
+def get_entries(file):
     clear_screen()
-    f = open("french.txt", "r")
+    f = open(file, "r")
     print(f.read())
 
     while True:
         choice = input("Press 1 to go back\n>>> ")
         if choice == "1":
             break
+
+
+def random_entry():
+    pass
 
 
 if __name__ == "__main__":
