@@ -64,7 +64,7 @@ def get_entries(file):
 def get_entry(file):
     f = open(file, "r")
     items_list = f.read().split('\n')
-    new_list = items_list[:-2]
+    new_list = items_list[:-1]
 
     while len(new_list) > 0:
         clear_screen()
@@ -73,16 +73,16 @@ def get_entry(file):
         print(item_list[0])
         answer = input("Translate: ").lower()
 
-        if answer != item_list[1]:
+        if answer == item_list[1]:
+            print("Correct!")
+            time.sleep(2)
+        else:
             print(f'The correct answer is "{item_list[1]}"\n')
             print("Press N to go Next")
             print("Press H to go Home")
             choice = input().lower()
             if choice == "h":
                 break
-
-        print("Correct!")
-        time.sleep(2)
 
         new_list.remove(item)
 
