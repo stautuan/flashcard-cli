@@ -4,13 +4,13 @@ import time
 
 def main():
     choice = ""
+    prompts = ["Add an entry", "View entries", "Study now", "Quit"]
+
     while choice != "4":
         clear_screen()
         print("What would you like to do?")
-        print("1 - Add an entry")
-        print("2 - View entries")
-        print("3 - Study now")
-        print("4 - Quit\n")
+        for i in range(0, len(prompts)):
+            print(f"{i + 1} - {prompts[i]}")
         choice = input(">>> ")
 
         if choice == "1":
