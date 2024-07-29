@@ -9,7 +9,7 @@ def main():
     while choice != "4":
         clear_screen()
         print("What would you like to do?")
-        for i in range(0, len(prompts)):
+        for i in range(len(prompts)):
             print(f"{i + 1} - {prompts[i]}")
         choice = input(">>> ")
 
