@@ -1,3 +1,4 @@
+import random
 import os
 import time
 
@@ -18,7 +19,7 @@ def main():
         elif choice == "2":
             get_entries("french.txt")
         elif choice == "3":
-            random_entry()
+            get_entry("french.txt")
         elif choice == "4":
             print("Au revoir!")
             break
@@ -57,9 +58,33 @@ def get_entries(file):
         if choice == "1":
             break
 
+# TODO: Fix the function below (it's a mess!)
 
-def random_entry():
-    pass
+
+def get_entry(file):
+    f = open(file, "r")
+    items_list = f.read().split('\n')
+    new_list = items_list[:-2]
+
+    while len(new_list) > 0:
+        clear_screen()
+        item = random.choice(new_list)
+        item_list = item.split(": ")
+        print(item_list[0])
+        answer = input("Translate: ").lower()
+
+        if answer != item_list[1]:
+            print(f'The correct answer is "{item_list[1]}"\n')
+            print("Press N to go Next")
+            print("Press H to go Home")
+            choice = input().lower()
+            if choice == "h":
+                break
+
+        print("Correct!")
+        time.sleep(2)
+
+        new_list.remove(item)
 
 
 if __name__ == "__main__":
