@@ -43,11 +43,11 @@ def add_entry(file):
     while True:
         clear_screen()
         print("======= New Entry ========")
+        text = input("Text: ")
+        translation = input("Translation: ")
         with open(file, "a") as f:
-            text = input("Text: ")
-            translation = input("Translation: ")
             f.write(f"{text}: {translation}\n")
-            print("Added!\n")
+        print("Added!\n")
 
         choice = input("Continue? [y/n] ").lower()
         if choice == "n":
@@ -64,7 +64,7 @@ def display_entries(file):
         if choice == "1":
             break
 
-# TODO: Fix the function below (it's a mess!)
+# TODO: Fix the function below
 
 
 def study_entries(file):
