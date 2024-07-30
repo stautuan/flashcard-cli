@@ -2,24 +2,24 @@ import random
 import os
 import time
 
+FILE_NAME = "french.txt"
+PROMPTS = ["Add an entry", "View entries", "Study now", "Quit"]
+
 
 def main():
     choice = ""
-    prompts = ["Add an entry", "View entries", "Study now", "Quit"]
 
     while choice != "4":
         clear_screen()
-        print("What would you like to do?")
-        for i in range(len(prompts)):
-            print(f"{i + 1} - {prompts[i]}")
+        display_menu(PROMPTS)
         choice = input(">>> ")
 
         if choice == "1":
-            add_entry("french.txt")
+            add_entry(FILE_NAME)
         elif choice == "2":
-            get_entries("french.txt")
+            display_entries(FILE_NAME)
         elif choice == "3":
-            get_entry("french.txt")
+            study_entries(FILE_NAME)
         elif choice == "4":
             print("Au revoir!")
             break
@@ -30,7 +30,13 @@ def main():
 
 
 def clear_screen():
-    os.system("clear")
+    os.system("clear" if os.name == "posix" else "cls")
+
+
+def display_menu(prompts):
+    print("What would you like to do?")
+    for i in range(len(prompts)):
+        print(f"{i + 1} - {prompts[i]}")
 
 
 def add_entry(file):
@@ -48,10 +54,10 @@ def add_entry(file):
             break
 
 
-def get_entries(file):
+def display_entries(file):
     clear_screen()
-    f = open(file, "r")
-    print(f.read())
+    with open(file, "r") as f:
+        print(f.read())
 
     while True:
         choice = input("Press 1 to go back\n>>> ")
@@ -61,23 +67,23 @@ def get_entries(file):
 # TODO: Fix the function below (it's a mess!)
 
 
-def get_entry(file):
-    f = open(file, "r")
-    items_list = f.read().split('\n')
-    new_list = items_list[:-1]
+def study_entries(file):
+    with open(file, "r") as f:
+        items_list = f.read().split('\n')
 
+    new_list = items_list[:-1]
     while len(new_list) > 0:
         clear_screen()
         item = random.choice(new_list)
-        item_list = item.split(": ")
-        print(item_list[0])
+        text, translation = item.split(": ")
+        print(text)
         answer = input("Translate: ").lower()
 
-        if answer == item_list[1]:
+        if answer == translation:
             print("Correct!")
             time.sleep(2)
         else:
-            print(f'The correct answer is "{item_list[1]}"\n')
+            print(f'The correct answer is "{translation}"\n')
             print("Press N to go Next")
             print("Press H to go Home")
             choice = input().lower()
@@ -85,6 +91,11 @@ def get_entry(file):
                 break
 
         new_list.remove(item)
+
+    if not new_list:
+        clear_screen()
+        print("You have reached the end.")
+        time.sleep(2)
 
 
 if __name__ == "__main__":
